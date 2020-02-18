@@ -1,0 +1,39 @@
+
+.home {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.t_r_align {
+    text-align: right;
+    width: 200px;
+}
+
+.text_in {
+
+}
+
+.inline {
+    display: inline-block;
+}
+
+.login_inner_spacing {
+    margin: 10px 0;
+
+}
+
+.spacing {
+    margin: 10px 0;
+}
+
+#msg {
+    padding-left: 10px;
+}

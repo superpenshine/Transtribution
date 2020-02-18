@@ -1,0 +1,16 @@
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	line-height: 3em;
+	background-color: rgb(52, 58, 64);
+}
+
+.footer button {
+    font-weight: 600;
+}
+
+.container-footer {
+	margin: auto;
+	max-width: 90%;
+}

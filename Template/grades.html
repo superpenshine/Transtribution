@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grades</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    <p>姓名： {{ name }} 班级： {{ class_name }} 学号： {{ student_id }}</p>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">科目</th>
+                <th scope="col">考试</th>
+                <th scope="col">分数</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for grade in grades %}
+                <tr>
+                    <td>{{ grade.subject }}</td>
+                    <td>{{ grade.test }}</td>
+                    <td>{{ grade.score }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</body>
+</html>
