@@ -7,7 +7,7 @@ from django import forms
 # 主界面
 class Login(LoginView):
 
-    template_name = 'index.html'
+    template_name = 'home.html'
     authentication_form = AuthForm
 
 
