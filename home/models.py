@@ -27,7 +27,7 @@ from django.utils import timezone
 
 class Student(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=32, blank=False)
-    password = models.CharField(max_length=18, blank=False)
+    password = models.CharField(max_length=128, blank=False)
     student_id = models.PositiveSmallIntegerField(null=True)
     class_name = models.CharField(max_length=32, null=True)
 

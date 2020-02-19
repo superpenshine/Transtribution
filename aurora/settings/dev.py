@@ -1,4 +1,5 @@
 from aurora.settings.base import * 
+import os
 
 # Override base.py settings
 DEBUG = True
@@ -13,3 +14,21 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'aurora',
+        'USER': os.environ.get("postgres_usr"),
+        'PASSWORD': os.environ.get("postgres_pwd"),
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}

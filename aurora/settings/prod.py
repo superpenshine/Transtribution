@@ -1,4 +1,5 @@
 from aurora.settings.base import * 
+import dj_database_url
 
 # Override base.py settings
 DEBUG = False
@@ -14,3 +15,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+print(dj_database_url.config(), 111111111111111111111111)
+
+DATABASES = {
+	'default': dj_database_url.config()
+} 
+
+# whitenoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
