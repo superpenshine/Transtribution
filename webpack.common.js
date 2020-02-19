@@ -3,7 +3,7 @@ module.exports = {
     entry: {
         index_bundle: './src/index.js', 
         // vender: "./src/vendor.js" // Multi-entry setting
-    },  
+    }, 
     module: {
         rules: [
             {

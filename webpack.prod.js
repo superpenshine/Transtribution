@@ -15,7 +15,7 @@ module.exports = merge(common, {
         // to use publicPath, all react router dom <route> path need fix
         // or use: 
         // <Route path={`${process.env.PUBLIC_URL}/`} component={Home} />
-        // publicPath: '/dist', 
+        publicPath: '/static/', 
     }, 
     optimization: {
         // Minimize css and js

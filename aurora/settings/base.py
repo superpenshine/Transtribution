@@ -109,7 +109,7 @@ STATICFILES_DIRS = [
 ]
 # Where to put all static files collected under STATICFILES_DIRS into
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# Url static file copies in STATIC_ROOT is served
+# folder where static file copies from STATIC_ROOT is served
 STATIC_URL = '/static/'
 # whitenoise
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
