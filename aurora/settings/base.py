@@ -3,9 +3,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'e0fl)kreaa^*3kukx5a=vgtr9#(&2%=)hneub^wn@phd7@42)i'
 
@@ -73,7 +70,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'aurora.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
@@ -83,7 +79,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -103,7 +98,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -117,12 +111,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (where CSS, JavaScript, Images located)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "Static"),
+    os.path.join(BASE_DIR, "Static"), # Backend static files
+    os.path.join(BASE_DIR, "dist"), # Frontend packed static files
 ]
-
-# Where static static root is served
+# Where to put all static files collected under STATICFILES_DIRS into
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Url static file copies in STATIC_ROOT is served
 STATIC_URL = '/static/'
+# whitenoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
