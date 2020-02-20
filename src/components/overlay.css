@@ -14,13 +14,44 @@
 
 .overlay-content {
     position: absolute;
-    top: 40%;
-    left: 40%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
     user-select: none;
     width: 20%;
+    height: 20%;
+    min-width: 10em;
     z-index: 2;
 }
 
 #overlay button, #overlay label {
     font-weight: 600;
 }
+
+/*@media (min-width: 576px) { 
+    .overlay-content {
+        width: 60%;
+        left: 20%;
+    }
+}*/
+
+/*// Small devices (landscape phones, less than 768px)*/
+/*@media (max-width: 768px) { 
+    .overlay-content {
+        width: 40%;
+        left: 30%;
+    }
+}*/
+
+/*// Medium devices (tablets, less than 992px)*/
+/*@media (max-width: 991.98px) { 
+    .overlay-content {
+        width: 20%;
+        left: 40%;
+    }
+}*/
+
+/*// Large devices (desktops, less than 1200px)
+@media (max-width: 1200px) { ... }*/

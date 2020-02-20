@@ -12,9 +12,6 @@ module.exports = merge(common, {
     output: {
         path: path.join(__dirname, '/dist'), 
         filename: '[name].[contentHash].js', 
-        // to use publicPath, all react router dom <route> path need fix
-        // or use: 
-        // <Route path={`${process.env.PUBLIC_URL}/`} component={Home} />
         publicPath: '/static/', 
     }, 
     optimization: {

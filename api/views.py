@@ -24,12 +24,14 @@ class GradeAPIView(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         user = request.user
         grades = self.get_queryset()
+
         return Response({"grades": self.get_serializer(grades, many=True).data, 
                          "user": user.name, 
                          "className": user.class_name, 
                          'studentId': user.student_id, 
                          'isStaff': user.is_staff})
 
+    # Deletion not supported
     def delete(self, request, *args, **kwargs):
         pass
 
@@ -38,9 +40,7 @@ class GradeAPIView(viewsets.ModelViewSet):
 
         errors = handelFileSubmit(request.FILES['file'])
         if errors:
-            content = {'errMsg': errors}
-            return Response(content, status=400)
+            return Response({'errMsg': errors}, status=400)
 
         else: 
-            content = {'success': True}
-            return Response(content)
+            return self.list(request)

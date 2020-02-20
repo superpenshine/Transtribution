@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import { selectFileFail } from './selectFile';
+import { fetchGradeSuccess } from './grades';
 import axios from 'axios';
 
 export const uploadGradesStart = () => {
@@ -40,8 +41,8 @@ export const uploadGrades = (data) => {
             )
         .then(
             res => {
-                let data = res.data; 
                 dispatch(uploadGradesSuccess());
+                dispatch(fetchGradeSuccess(res.data));
             }
         )
         .catch(

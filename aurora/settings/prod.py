@@ -16,8 +16,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-print(dj_database_url.config(), 111111111111111111111111)
-
 DATABASES = {
 	'default': dj_database_url.config()
 } 

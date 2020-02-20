@@ -19,7 +19,7 @@ class FileUploader extends Component {
     render(){
         return(
             <React.Fragment>
-                <div className="row d-flex p-2"> 
+                <div className="p-2"> 
                     <input name="file" 
                            type="file" 
                            accept=".xlsx, .xls, .csv, .txt" 
@@ -32,12 +32,15 @@ class FileUploader extends Component {
                     </label>
                 </div>
                 { this.props.msg ? 
-                    <div className='row d-flex pl-2'>
+                    <div className='d-flex pl-2'>
                         <div><font color='#d6094a' style={{fontWeight: 800}}>{ this.props.msg }</font></div>
                     </div> : null
                 }
-                <div className='row d-flex p-2'>
+                <div className='d-flex p-2 flex-wrap'>
+                    <div>
+                        
                     <button className='btn btn-light' tabIndex="2" onClick={ () => this.props.handelFileSubmit(this.props.file) }>上传</button>
+                    </div>
                     <div className="ml-auto">
                         <button className='btn btn-light' onClick={ this.props.onCancel }  tabIndex="3">取消</button>
                     </div>
