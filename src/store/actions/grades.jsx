@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const fetchGradeStart = () => {
     return {
-        type: actionTypes.GRADES_FETCH_SUCCESS
+        type: actionTypes.GRADES_FETCH_START
     }
 }
 
@@ -15,6 +15,7 @@ export const fetchGradeSuccess = (data) => {
 }
 
 export const fetchGrades = () => {
+    
     return dispatch => {
         dispatch(fetchGradeStart());
         const token = localStorage.getItem('token')

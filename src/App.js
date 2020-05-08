@@ -12,7 +12,7 @@ import * as actions from './store/actions/auth';
 function App(props) {
 
 	useEffect(() => {
-		props.onTryAutoSignup();
+		props.isAuthenticated ? null : props.onTryAutoSignup();
 	});
 
     return (

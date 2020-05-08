@@ -52,6 +52,7 @@ function mapStateToProps(state) {
 		isAuthenticated: state.token !== null, 
 		user: state.user, 
 		isAdmin: state.isStaff, 
+		loading: state.loading,
 	}
 }
 

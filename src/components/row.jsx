@@ -11,7 +11,7 @@ class Row extends Component {
 				<td>{ subject }</td>
 				<td>{ test }</td>
 				<td>{ score }</td>
-				{ this.props.isAdmin ? null : <td>{ avg }</td>}
+				{ this.props.isAdmin ? null : <td>{ Math.round(avg * 10) / 10 }</td>}
 				{ this.props.isAdmin ? null : <td>{ max }</td>}
 				{ this.props.isAdmin ? null : <td>{ min }</td>}
 				{ this.props.isAdmin ? null : <td>{ pass_num }/{ count }</td>}

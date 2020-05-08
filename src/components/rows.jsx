@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 
 class Rows extends Component {
 	state = {
-			 loading: false, 
 			 currentPage: 1, 
 			 selectedAll: false
 			 };
@@ -39,7 +38,7 @@ class Rows extends Component {
 	}
 
 	getCols = () => {
-		const cols = ['学科', '考试', '分数', '平均分', '最高分', '最低分', '及格人数/考試人数', '排名/考試人数'];
+		const cols = ['学科', '考试', '分数', '平均分', '最高分', '最低分', '及格人数/考试人数', '排名/考试人数'];
 		const cols_admin = ['姓名', '学科', '考试', '分数', <input type='checkbox' 
 													  onChange={ this.toggleSelectAll }	
 													  checked={ this.state.selectedAll }
@@ -48,11 +47,6 @@ class Rows extends Component {
 	}
 
 	render() {
-	    
-	    // Or play spinner
-    	if (this.state.loading) {
-    		return (<h2>Loading...</h2>);
-    	}
 
 	    return (
 	    		<div>
@@ -90,7 +84,6 @@ const mapStateToProps = (state) => {
 		isAdmin: state.isStaff, 
 		token: state.token, 
 		data: state.grades, 
-		loading: state.loading, 
 	}
 }
 

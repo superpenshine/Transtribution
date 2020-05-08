@@ -26,7 +26,7 @@ class LoginForm extends Component {
                         <div className="form-group row">
                             <label htmlFor="password" className="col-sm-3 col-form-label">密码</label>
                             <div className="col-sm-9">
-                                <input name="password" className="form-control login-input" id="password" placeholder="学生身份证号后四位" type='password' tabIndex="2"></input>
+                                <input name="password" className="form-control login-input" id="password" placeholder="学生身份证号后四位" type='password' tabIndex="2" autoComplete="on"></input>
                             </div>
                         </div>
                         <div className="row">
