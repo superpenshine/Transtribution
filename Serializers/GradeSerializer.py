@@ -87,7 +87,7 @@ class GradeListSerializer(serializers.ListSerializer):
                 )
 
             except MultipleObjectsReturned:
-                print(f"ERROR: Grade data integrity error. Multiple grades of using information {s_data.values()} found.")
+                print(f"ERROR: Grade data integrity error. Multiple grades of with information {s_data.values()} found.")
 
             ret.append(grade)
 

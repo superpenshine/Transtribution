@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.db.models import Count, Avg, Max, Min, Q
 # V1 user profile
 # class Student(models.Model):
 #     name = models.CharField(max_length=32, blank=False)
@@ -60,11 +60,24 @@ class Student(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return f'\n{self.name}_{self.class_name}_{self.student_id}_{self.password}_{self.date_joined}'
 
+class GradeQuerySet(models.QuerySet):
+
+    # Grade count, avg, max, min, passed grade number of all test
+    # example: class_grades_stats = Grade.objects.get_grade_stats(pass_grade=60)
+    def get_grade_stats(self, pass_grade=60):
+        return self.values('test', 'subject').annotate(count=Count('id'), avg=Avg('score'), max=Max('score'), min=Min('score'), pass_num=Count('id', filter=Q(score__gte=pass_grade)))
+
+    # Grade count, avg, max, min, passed grade number of specified test
+    def get_test_stats(self, subject, test, pass_grade=60):
+        return self.filter(subject=subject, test=test).aggregate(count=Count('id'), avg=Avg('score'), max=Max('score'), min=Min('score'), pass_num=Count('id', filter=Q(score__gte=pass_grade)))
+
 class Grade(models.Model):
     test = models.CharField(max_length=62, blank=False)
     subject = models.CharField(max_length=32, blank=False)
     name = models.ForeignKey(Student, on_delete=models.CASCADE, blank=False)
     score = models.FloatField(blank=False)
+    # Shortcut to add a duplicated method in custom model manager
+    objects = GradeQuerySet.as_manager()
 
     class Meta:
         db_table = 'grades'
@@ -72,3 +85,4 @@ class Grade(models.Model):
 
     def __str__(self):
         return f'\n{self.name}_{self.subject}_{self.test}_{self.score}'
+

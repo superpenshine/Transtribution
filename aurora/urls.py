@@ -22,5 +22,6 @@ urlpatterns = [
     path('grades/', include('grades.urls')), 
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')), 
+    # Default static page loaded from /dist/ folder as managed in aurora/settings/dev.py, no hot reloading
     path('', TemplateView.as_view(template_name='index.html')), 
 ]

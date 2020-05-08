@@ -6,30 +6,6 @@ import * as actions from '../store/actions/auth';
 
 class LoginForm extends Component {
 
-    // Login request handeler
-    // import axios from 'axios';
-    // state = {
-    //     msg: "请登陆后查看成绩", 
-    // };
-    // handelLoginClick = e => {
-    //     e.preventDefault();
-    //     const username = e.target.username.value;
-    //     const password = e.target.password.value;
-    //     axios.post('/api/token_auth/', 
-    //         { username, password }
-    //     )
-    //     .then((response) => {
-    //         const msg = response.data.token;
-    //         this.setState({ msg });
-    //         window.location.href = '/api/grades';
-    //     })
-    //     .catch((error) => {
-    //         const msg = <font color='red'>用户名或密码错误</font>;
-    //         this.setState({ msg });
-    //     });
-
-    // };
-
     handelLoginClick = e => {
         e.preventDefault();
         const username = e.target.username.value;
@@ -50,7 +26,7 @@ class LoginForm extends Component {
                         <div className="form-group row">
                             <label htmlFor="password" className="col-sm-3 col-form-label">密码</label>
                             <div className="col-sm-9">
-                                <input name="password" className="form-control login-input" id="password" placeholder="学生身份证号后四位" tabIndex="2"></input>
+                                <input name="password" className="form-control login-input" id="password" placeholder="学生身份证号后四位" type='password' tabIndex="2"></input>
                             </div>
                         </div>
                         <div className="row">

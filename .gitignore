@@ -132,3 +132,6 @@ dmypy.json
 addDatabaseTestData.py
 
 /node_modules
+
+# db copy
+.dump

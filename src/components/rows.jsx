@@ -38,11 +38,16 @@ class Rows extends Component {
 		this.setState({ currentPage, selectedAll: false });
 	}
 
-	render() {
-		const colums = ['学科', '考试', '分数', <input type='checkbox' 
-													  onChange={ this.toggleSelectAll }
+	getCols = () => {
+		const cols = ['学科', '考试', '分数', '平均分', '最高分', '最低分', '及格人数/考試人数', '排名/考試人数'];
+		const cols_admin = ['姓名', '学科', '考试', '分数', <input type='checkbox' 
+													  onChange={ this.toggleSelectAll }	
 													  checked={ this.state.selectedAll }
 													  tabIndex={ -1 }></input>];
+		return this.props.isAdmin ? cols_admin : cols;
+	}
+
+	render() {
 	    
 	    // Or play spinner
     	if (this.state.loading) {
@@ -54,7 +59,7 @@ class Rows extends Component {
 					<table className="table table-striped" style={{'fontWeight':600}}>
 						<thead>
 							<tr>
-								{ colums.map(colum => <th scope='col' key={ colum }>{ colum }</th>) }
+								{ this.getCols().map(colum => <th scope='col' key={ colum }>{ colum }</th>) }
 							</tr>
 						</thead>
 						<tbody>
@@ -63,6 +68,7 @@ class Rows extends Component {
 									 grade={ grade }
 									 onSelectClick={ this.props.onSelectClick }
 									 id={ grade.id }
+									 isAdmin={ this.props.isAdmin }
 									 checked={ this.props.selected.includes(grade.id) }>
 								</Row>
 								)
@@ -81,6 +87,7 @@ class Rows extends Component {
 
 const mapStateToProps = (state) => {
 	return {
+		isAdmin: state.isStaff, 
 		token: state.token, 
 		data: state.grades, 
 		loading: state.loading, 

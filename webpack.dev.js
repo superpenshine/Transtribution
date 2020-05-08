@@ -23,7 +23,7 @@ module.exports = merge(common, {
         liveReload: false, // HMR enabled, disable live reload
         proxy: {
           '/api': {
-                target: 'http://localhost:8000'
+                target: 'http://localhost:8000' // Redirect to localhost:8000 for django rest api
             }
         }
     }, 
