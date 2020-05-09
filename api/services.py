@@ -25,6 +25,8 @@ key_en = {
 }
 
 '''
+Find row # which contains colum info, col # which corresponds to grade/student attributes
+
 key_order = {'name':{'class_name': xxx, 'student_id': xxx, ...}, 
             'score': xx, 
             'subject': xx
@@ -49,6 +51,11 @@ def get_key_order(s):
 
     return key_order, header_row
 
+'''
+Get student/grade info from file
+s_data: student attributes
+g_data: grade attributes
+'''
 def parse(file):
     f = openpyxl.load_workbook(file)
     sheetNames = f.get_sheet_names()
@@ -56,7 +63,6 @@ def parse(file):
 
     for s_name in sheetNames:
         s = f[s_name]
-
         # Separate student and grade model data
         key_order, header_row = get_key_order(s)
         s_key_order = key_order.pop('name')

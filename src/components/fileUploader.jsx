@@ -16,6 +16,14 @@ class FileUploader extends Component {
         return style;
     }
 
+    listErrors = () => {
+        console.log(this.props.err_msgs)
+        console.log(typeof(this.props.err_msgs))
+        return this.props.err_msgs.map((err, index) => (
+            <div key={ index }>{ err.name }</div>
+        ));
+    }
+
     render(){
         return(
             <React.Fragment>
@@ -31,9 +39,14 @@ class FileUploader extends Component {
                         { this.props.fileName ? this.props.fileName : '选择文件' }
                     </label>
                 </div>
-                { this.props.msg ? 
+                { this.props.err_msgs ? 
                     <div className='d-flex pl-2'>
-                        <div><font color='#d6094a' style={{fontWeight: 800}}>{ this.props.msg }</font></div>
+                        <div>
+                        <font color='#d6094a' style={{fontWeight: 800}}>
+                            <div>上传失败</div>
+                            { this.listErrors() }
+                        </font>
+                        </div>
                     </div> : null
                 }
                 <div className='d-flex p-2 flex-wrap'>
@@ -55,7 +68,7 @@ const mapStateToProps = (state) => {
         file: state.selectedFile, 
         fileName: state.selectedFileName, 
         uploading: state.uploading, 
-        msg: state.error, 
+        err_msgs: state.errorArr, 
         uploadSuccess: state.uploadSuccess, 
     }
 }

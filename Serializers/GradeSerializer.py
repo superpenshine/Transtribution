@@ -50,16 +50,17 @@ class GradeSerializer(serializers.Serializer):
                 student.password = s_data['password']
                 student.save()
 
+        # Create new obj
         except Student.DoesNotExist:
             ser = StudentSerializer(data=s_data)
             if ser.is_valid():
                 student = Student(**ser.validated_data)
                 student.save()
             else:
-                raise serializers.ValidationError(f"Multiple student found with information {s_data.values()}. To create new student, you must provide name, password student_id an class_name.")
+                raise serializers.ValidationError(f"Multiple student found with information {dict(s_data)}. To create new student, you must provide name, password student_id and class_name.")
 
         except MultipleObjectsReturned:
-            raise serializers.ValidationError(f"Multiple student found with information {s_data.values()}, try provide more information such as name, student_id and class_name.")
+            raise serializers.ValidationError(f"Multiple student found with information {dict(s_data)}, try provide more information such as name, student_id and class_name.")
 
         return student
 
@@ -80,17 +81,17 @@ class GradeListSerializer(serializers.ListSerializer):
                 instance = Grade.objects.get(name=data['name'], test=data['test'], subject=data['subject'])
                 grade = self.update(instance, data)
                 assert grade is not None, (
-                    '`update()` did not return an object instance.'
+                    f'`GradeListSerializer.update()` did not return an object instance with information {dict(data)}.'
                 )
 
             except Grade.DoesNotExist:
                 grade = self.create(data)
                 assert grade is not None, (
-                    '`create()` did not return an object instance.'
+                    f'`GradeListSerializer.create()` did not return an object instance with information {dict(data)}.'
                 )
 
             except MultipleObjectsReturned:
-                print(f"ERROR: Grade data integrity error. Multiple grades of with information {s_data.values()} found.")
+                print(f"ERROR: Grade data integrity error. Multiple grades of with information {dict(data)} found.")
 
             ret.append(grade)
 

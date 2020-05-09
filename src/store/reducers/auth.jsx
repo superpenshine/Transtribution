@@ -9,6 +9,7 @@ const initialState = {
 	studentId: null, 
 	isStaff: false, 
 	error: '请登陆后查看成绩', 
+	errorArr: null, 
 	loading: false, 
 	uploading: false, 
 	uploadSuccess: false, 
@@ -61,7 +62,7 @@ const fetchGradeSuccess = (state, action) => {
 const updateGradeStart = (state, action) => {
 	return updateObject(state, {
 		uploading: true, 
-		error: null, 
+		errorArr: null, 
 	});
 }
 const updateGradeSuccess = (state, action) => {
@@ -72,7 +73,7 @@ const updateGradeSuccess = (state, action) => {
 }
 const updateGradeFail = (state, action) => {
 	return updateObject(state, {
-		error: "请按F12并在console中查看错误信息", 
+		errorArr: action.error, 
 		uploading: false, 
 		uploadSuccess: false,
 	});

@@ -54,7 +54,7 @@ class GradeAPIView(viewsets.ModelViewSet):
 
         errors = handelFileSubmit(request.FILES['file'])
         if errors:
-            return Response({'errMsg': errors}, status=400)
+            return Response({'errMsg': [error for error in errors if error]}, status=400)
 
         else: 
             return self.list(request)
