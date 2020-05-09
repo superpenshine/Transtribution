@@ -1,6 +1,9 @@
 
 html, body {
     height: 100vh;
+    font-family: "Hiragino Sans GB", "Microsoft YaHei", 黑体, Helvetica, Arial, Tahoma, sans-serif;
+    font-size: 16px;
+    color: rgb(34, 34, 34);
 }
 
 #root {

@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 // CSS & components
+import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
-import 'bootstrap/dist/css/bootstrap.css';
 // Router
 import { BrowserRouter } from 'react-router-dom'; 
 // Redux related

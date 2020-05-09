@@ -2,6 +2,7 @@ from rest_framework import serializers
 from home.models import Grade, Student
 from Serializers.StudentSerializer import StudentSerializer, StudentSoftSerializer
 from django.core.exceptions import MultipleObjectsReturned
+
 '''
 Undocumented serializer validation steps: 
     # 1. Field deserialization called (serializer.to_internal_value and field.run_validators)
@@ -29,7 +30,9 @@ class GradeSerializer(serializers.Serializer):
 
         return instance
 
-    # Validate 'name' and map 'name' to user
+    ''' 
+    Validate 'name' and map 'name' to user, used as custom field validation in the serializer validation steps.
+    '''
     def validate_name(self, s_data):
 
         # Try identify student
@@ -94,9 +97,7 @@ class GradeListSerializer(serializers.ListSerializer):
         return grade
 
     def create(self, data):
-        grade = self.child.create(data)
-        grade.save()
-        return grade
+        return self.child.create(data)
 
     def update(self, instance, data):
         return self.child.update(instance, data)

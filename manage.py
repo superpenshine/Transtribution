@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aurora.settings.prod')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aurora.settings.dev')
     # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aurora.settings')
     try:
         from django.core.management import execute_from_command_line

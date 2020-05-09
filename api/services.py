@@ -61,8 +61,8 @@ def parse(file):
         key_order, header_row = get_key_order(s)
         s_key_order = key_order.pop('name')
         g_key_order = key_order
-        s_data = np.array([list(row) for row in s.iter_rows(min_row=header_row+1, values_only=True)])[:, list(s_key_order.values())]
-        g_data = np.array([list(row) for row in s.iter_rows(min_row=header_row+1, values_only=True)])[:, list(g_key_order.values())]
+        s_data = np.array([list(row) for row in s.iter_rows(min_row=header_row+1, values_only=True) if any(row)])[:, list(s_key_order.values())]
+        g_data = np.array([list(row) for row in s.iter_rows(min_row=header_row+1, values_only=True) if any(row)])[:, list(g_key_order.values())]
         
         # Pack data
         for g_r, s_r in zip(g_data, s_data):
@@ -80,11 +80,9 @@ def handelFileSubmit(file):
     # Parse input file
     try:
         data = parse(file)
-    except ValueError:
-        content = {'success': False, 
-                   'errMsg': 'Cannot parse file.'}
+    except ValueError as e:
                    
-        return Response(content)
+        return str(e)
 
     # Serialize parsed data
     ser = GradeListSerializer(data=data)
