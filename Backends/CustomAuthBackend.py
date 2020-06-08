@@ -4,6 +4,7 @@ from home.models import Student
 
 class CustomAuthBackend(BaseBackend):
 
+  # Allows unique together fields as primary key, should hash the password
   def authenticate(self, request, username=None, password=None):
       try:
           student = Student.objects.get(name=username, password=password)

@@ -52,13 +52,13 @@ const mapStateToProps = (state) => {
         loading: state.loading, 
         msg: state.error
     }
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onAuth: (usr, pwd) => dispatch(actions.authLogin(usr, pwd)), 
     }
-}
+};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

@@ -1,8 +1,18 @@
 
 import React, { Component } from 'react';
+import * as actions from '../store/actions/sort';
 import Row from './row';
 import Pagination from './pagination';
 import { connect } from 'react-redux';
+import './rows.css';
+
+const cols = {'学科':'subject', '考试':'test', '分数':'score', 
+			'平均分':'avg', '最高分':'max', '最低分':'min', 
+			'及格人数/考试人数':['pass_num', 'count'], 
+			'排名/考试人数':['rank', 'count']}
+
+const cols_admin = {'姓名':'name', '学科':'subject', '考试':'test', 
+					'分数':'score'}
 
 class Rows extends Component {
 	state = {
@@ -15,14 +25,13 @@ class Rows extends Component {
 		const indexOfLastRow = this.state.currentPage * this.props.rowsPerPage;
 		const indexOfFirstRow = indexOfLastRow - this.props.rowsPerPage;
 		return this.props.data.slice(indexOfFirstRow, indexOfLastRow);
-	}
+	};
 
 	// Get database entries ids
 	getRowIds () {
 		return this.getCurrentDisplayRows().map(row => row.id);
-	}
+	};
 
-	// [...Array(ids.length).keys()]
 
 	// Select all checkbox handler
 	toggleSelectAll = (id) => {
@@ -30,30 +39,37 @@ class Rows extends Component {
 		const ids = this.getRowIds();
 		selectedAll ? this.props.onSelectAll(ids) : this.props.onDeSelectAll(ids);
 		this.setState({ selectedAll });
-	}
+	};
 
 	// Change Page
 	paginate = currentPage => {
 		this.setState({ currentPage, selectedAll: false });
-	}
+	};
 
-	getCols = () => {
-		const cols = ['学科', '考试', '分数', '平均分', '最高分', '最低分', '及格人数/考试人数', '排名/考试人数'];
-		const cols_admin = ['姓名', '学科', '考试', '分数', <input type='checkbox' 
-													  onChange={ this.toggleSelectAll }	
-													  checked={ this.state.selectedAll }
-													  tabIndex={ -1 }></input>];
-		return this.props.isAdmin ? cols_admin : cols;
-	}
+	// Handle Table sort click
+	handleSortClick = key => {
+		this.props.sortGrade(key);
+	};
 
 	render() {
 
 	    return (
 	    		<div>
-					<table className="table table-striped" style={{'fontWeight':600}}>
-						<thead>
+					<table className="table table-striped">
+						<thead style={{'fontWeight':600}}>
 							<tr>
-								{ this.getCols().map(colum => <th scope='col' key={ colum }>{ colum }</th>) }
+								{ Object.entries(this.props.isAdmin ? cols_admin : cols).map(([key, val], i) => 
+									<th className="fadeInOnHover" 
+										onClick = { () => this.handleSortClick(val)} 
+										scope='col' 
+										key={ i }>{ key }
+									</th>)
+								}
+								<th><input type='checkbox' 
+										onChange={ this.toggleSelectAll }	
+										checked={ this.state.selectedAll } 
+										tabIndex={ -1 }></input>
+								</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -64,8 +80,7 @@ class Rows extends Component {
 									 id={ grade.id }
 									 isAdmin={ this.props.isAdmin }
 									 checked={ this.props.selected.includes(grade.id) }>
-								</Row>
-								)
+								</Row>)
 							}
 						</tbody>
 					</table>
@@ -85,8 +100,14 @@ const mapStateToProps = (state) => {
 		token: state.token, 
 		data: state.grades, 
 	}
-}
+};
 
-export default connect(mapStateToProps)(Rows);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		sortGrade: (sort_key) => dispatch(actions.sortGrade(sort_key)), 
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Rows);
 
 

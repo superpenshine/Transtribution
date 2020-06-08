@@ -20,7 +20,7 @@ class FileUploader extends Component {
         console.log(this.props.err_msgs)
         console.log(typeof(this.props.err_msgs))
         return this.props.err_msgs.map((err, index) => (
-            <div key={ index }>{ err.name }</div>
+            <div key={ index }>{ index + 1 }. { err.name }</div>
         ));
     }
 
@@ -44,6 +44,7 @@ class FileUploader extends Component {
                         <div>
                         <font color='#d6094a' style={{fontWeight: 800}}>
                             <div>上传失败</div>
+                            <div>错误日志：</div>
                             { this.listErrors() }
                         </font>
                         </div>

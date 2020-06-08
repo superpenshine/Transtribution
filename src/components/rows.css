@@ -1,0 +1,7 @@
+.fadeInOnHover {
+	opacity: 1;
+	transition: 0.3s;
+}
+.fadeInOnHover:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+}

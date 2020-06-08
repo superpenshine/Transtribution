@@ -1,7 +1,48 @@
 import openpyxl
+import asyncio
 import numpy as np
 from Serializers.GradeSerializer import GradeListSerializer
 from home.models import Grade
+from concurrent.futures import ThreadPoolExecutor
+
+# Email
+import smtplib
+from django.conf import settings
+from email.message import EmailMessage
+from email.headerregistry import Address
+
+_DEFAULT_POOL = ThreadPoolExecutor()
+
+'''
+Python3.2+, return future obj, use 'future obj'.result() to get return values
+'''
+def threaded(thread_pool=_DEFAULT_POOL):
+    def decorator(func, *args, **kwargs):
+        def inner(*args, **kwargs):
+            return thread_pool.submit(func, *args, **kwargs)
+        return inner
+    return decorator
+
+'''
+Send email to address with given subj and content
+smtp server and credentials must be set as env variables in advance.
+to: aaa@aaa.aaa or [aaa@aaa.aaa, ...]
+'''
+@threaded()
+def send_email(to, subject='Email from Transtribution', content=''):
+    msg = EmailMessage()
+    msg['From'] = Address(display_name=settings.SMTP_HOST_USER.split('@')[0].replace('.', ''), addr_spec=to)
+    msg['To'] = Address(display_name=to.split('@')[0].replace('.', ''), addr_spec=to)
+    msg['Subject'] = subject
+    msg.set_content(content)
+
+    try:
+        with smtplib.SMTP_SSL(settings.SMTP_HOST_ADDR, port=settings.SMTP_HOST_PORT) as smp:
+            smp.login(settings.SMTP_HOST_USER, settings.SMTP_HOST_PWD)
+            smp.send_message(msg)
+
+    except Exception as e:
+        return e
 
 # Student identity attributes
 pri_key_en = {
@@ -82,15 +123,13 @@ def parse(file):
     return data
 
 def handelFileSubmit(file):
-
-    # Parse input file
     try:
         data = parse(file)
     except ValueError as e:
                    
         return str(e)
 
-    # Serialize parsed data
+    # Serialize and validate
     ser = GradeListSerializer(data=data)
     if ser.is_valid():
         ser.save()

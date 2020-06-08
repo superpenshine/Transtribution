@@ -4,19 +4,36 @@ from Serializers.StudentSerializer import StudentSerializer, StudentSoftSerializ
 from django.core.exceptions import MultipleObjectsReturned
 
 '''
+For serialization, model obj(or obj with many=true) to python dict
+'''
+class FlatGradeSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source='name.name', read_only=True)
+    student_id = serializers.IntegerField(source='name.student_id', read_only=True)
+    class_name = serializers.CharField(source='name.class_name', read_only=True)
+    password = serializers.CharField(source='name.password', read_only=True)
+    test = serializers.CharField(read_only=True)
+    subject = serializers.CharField(read_only=True)
+    score = serializers.FloatField(read_only=True)
+    id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Grade
+        fields = ('name', 'student_id', 'class_name', 'password', 'test', 'subject', 'score', 'id')
+
+'''
+For deserialization, python dict to model obj
 Undocumented serializer validation steps: 
     # 1. Field deserialization called (serializer.to_internal_value and field.run_validators)
     # 2. serializer.validate_[field] is called for each field
     # 3. Serializer-level validators are called (serializer.run_validation followed by serializer.run_validators)
     # 4. serializer.validate is called
 '''
-
 class GradeSerializer(serializers.Serializer):
     name = StudentSoftSerializer()
     test = serializers.CharField(max_length=62, required=True)
     subject = serializers.CharField(max_length=32, required=True)
-    score = serializers.FloatField()
-    id = serializers.IntegerField(label='ID', read_only=True)
+    score = serializers.FloatField(required=True)
+    id = serializers.IntegerField(label='ID')
 
     def create(self, validated_data):
         grade = Grade(**validated_data)

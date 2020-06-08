@@ -1,6 +1,6 @@
 # Api view of grades
 from home.models import Grade
-from Serializers.GradeSerializer import GradeSerializer
+from Serializers.GradeSerializer import GradeSerializer, FlatGradeSerializer
 from api.services import handelFileSubmit
 from django.db.models import Count, Avg, Max, Min, Q
 
@@ -10,13 +10,35 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser
 
 '''
-Returned data format:
-{"grades":[{"name":{"name":"张益凯","password":"1324","student_id":1,
-"class_name":"一（三）班"},"test":"期末考试","subject":"数学","score":99.0,
-"id":38}],"user":"admin","className":null,"studentId":null,"isStaff":true}
+Returned data format
+Non-staff: 
+{"grades":[
+    {name":"张益凯","password":"1324","student_id":1,"class_name":"一（三）班",
+    "test":"期末考试","subject":"数学","score":99.0,"id":38,"rank":1,"count":37,
+    "avg":94.02,"max":99,"min":75.0,"pass_num":37}
+    {name":"张益凯","password":"1324","student_id":1,"class_name":"一（三）班",
+    "test":"期末考试","subject":"语文","score":99.0,"id":38,"rank":1,"count":37,
+    "avg":94.02,"max":99,"min":75.0,"pass_num":37}
+    ],
+ "user":"张益凯",
+ "className":一（三）班,
+ "studentId":1,
+ "isStaff":false}
+ 
+Staff: 
+{"grades":[
+    {name":"张益凯","password":"1324","student_id":1,"class_name":"一（三）班",
+    "test":"期末考试","subject":"数学","score":99.0,"id":38}
+    {name":"常梦冉","password":"1324","student_id":1,"class_name":"一（三）班",
+    "test":"期末考试","subject":"语文","score":99.0,"id":38}
+    ],
+ "user":"admin",
+ "className":null,
+ "studentId":null,
+ "isStaff":true}
 '''
 class GradeAPIView(viewsets.ModelViewSet):
-    serializer_class = GradeSerializer
+    serializer_class = FlatGradeSerializer
 
     def get_grade_data(self):
         user = self.request.user

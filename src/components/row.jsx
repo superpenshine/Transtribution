@@ -7,7 +7,7 @@ class Row extends Component {
     	const {subject, test, score, name, avg, max, min, pass_num, rank, count} = this.props.grade;
 	    return (
 			<tr>
-				{ this.props.isAdmin ? <td>{ name.name }</td> : null }
+				{ this.props.isAdmin ? <td>{ name }</td> : null }
 				<td>{ subject }</td>
 				<td>{ test }</td>
 				<td>{ score }</td>
