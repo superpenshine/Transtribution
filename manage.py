@@ -2,12 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-import dj_database_url
-
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aurora.settings.prod')
-    print("MANAGE USING DB settings: ", dj_database_url.config())
+
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aurora.settings.dev' if os.environ.get('DJANGO_DEV') else 'aurora.settings.prod')
     # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'aurora.settings')
     try:
         from django.core.management import execute_from_command_line

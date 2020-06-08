@@ -33,7 +33,6 @@ class GradeSerializer(serializers.Serializer):
     test = serializers.CharField(max_length=62, required=True)
     subject = serializers.CharField(max_length=32, required=True)
     score = serializers.FloatField(required=True)
-    id = serializers.IntegerField(label='ID')
 
     def create(self, validated_data):
         grade = Grade(**validated_data)

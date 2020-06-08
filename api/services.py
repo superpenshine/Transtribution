@@ -1,15 +1,20 @@
-import openpyxl
-import asyncio
-import numpy as np
-from Serializers.GradeSerializer import GradeListSerializer
 from home.models import Grade
-from concurrent.futures import ThreadPoolExecutor
+from Serializers.GradeSerializer import GradeListSerializer, FlatGradeSerializer
+
+# File parse
+import openpyxl
+import numpy as np
 
 # Email
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 import smtplib
 from django.conf import settings
 from email.message import EmailMessage
 from email.headerregistry import Address
+
+# Grade analysis
+from django.db.models import Count, Avg, Max, Min, Q
 
 _DEFAULT_POOL = ThreadPoolExecutor()
 
@@ -135,3 +140,20 @@ def handelFileSubmit(file):
         ser.save()
 
     return ser.errors
+
+# Return grades of an user model obj
+def user_grade_data(user):
+    # If not logged in request.user is anonymous and is_staff=false
+    if user.is_staff:
+        grade_data = FlatGradeSerializer(Grade.objects.all(), many=True).data
+    else:
+        grade_data = FlatGradeSerializer(Grade.objects.filter(name=user), many=True).data
+        class_grades = Grade.objects.filter(name__class_name=user.class_name)
+        for grade in grade_data:
+            subject, test, score = grade['subject'], grade['test'], grade['score']
+            # Get ranking #
+            grade.update(class_grades.aggregate(rank=Count('id', filter=Q(subject=subject, test=test, score__gte=score))))
+            # Get test stats
+            grade.update(class_grades.get_test_stats(subject, test, pass_grade=60))
+
+    return grade_data

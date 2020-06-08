@@ -17,8 +17,6 @@ class FileUploader extends Component {
     }
 
     listErrors = () => {
-        console.log(this.props.err_msgs)
-        console.log(typeof(this.props.err_msgs))
         return this.props.err_msgs.map((err, index) => (
             <div key={ index }>{ index + 1 }. { err.name }</div>
         ));

@@ -1,8 +1,7 @@
 # Api view of grades
 from home.models import Grade
-from Serializers.GradeSerializer import GradeSerializer, FlatGradeSerializer
-from api.services import handelFileSubmit
-from django.db.models import Count, Avg, Max, Min, Q
+# from Serializers.GradeSerializer import FlatGradeSerializer
+from api.services import handelFileSubmit, user_grade_data
 
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -10,7 +9,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser
 
 '''
-Returned data format
+Return data format
 Non-staff: 
 {"grades":[
     {name":"张益凯","password":"1324","student_id":1,"class_name":"一（三）班",
@@ -38,28 +37,11 @@ Staff:
  "isStaff":true}
 '''
 class GradeAPIView(viewsets.ModelViewSet):
-    serializer_class = FlatGradeSerializer
-
-    def get_grade_data(self):
-        user = self.request.user
-        # If not logged in request.user is anonymous and is_staff=false
-        if user.is_staff:
-            grade_data = self.get_serializer(Grade.objects.all(), many=True).data
-        else:
-            grade_data = self.get_serializer(Grade.objects.filter(name=self.request.user), many=True).data
-            class_grades = Grade.objects.filter(name__class_name=user.class_name)
-            for grade in grade_data:
-                subject, test, score = grade['subject'], grade['test'], grade['score']
-                # Get ranking #
-                grade.update(class_grades.aggregate(rank=Count('id', filter=Q(subject=subject, test=test, score__gte=score))))
-                # Get test stats
-                grade.update(class_grades.get_test_stats(subject, test, pass_grade=60))
-
-        return grade_data
+    # serializer_class = FlatGradeSerializer
 
     def list(self, request, *args, **kwargs):
         user = request.user
-        grades = self.get_grade_data()
+        grades = user_grade_data(request.user)
 
         return Response({"grades": grades, 
                          "user": user.name, 
