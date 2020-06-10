@@ -20,7 +20,7 @@
 使用管理员账号登陆 http://hyc.haotianshen.com/admin/ ，选择grades/students，勾选删除项， 在'go'下拉菜单中选择删除。 在删除确认页面点击确认即可。
 
 
-## You will be logged out automatically after 1h, currently no hashing applied to user password (a vulnerability to be taken care of later) except for admin user that is created with 'createsuperuser'.
+You will be logged out automatically after 1h, currently no hashing applied to user password (a vulnerability to be taken care of later) except for admin user that is created with 'createsuperuser'.
 
 ## Grade lookup (for parents / teachers):
 

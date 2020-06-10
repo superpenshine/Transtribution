@@ -9,6 +9,8 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser
 
 '''
+GradeAPIView: basic oprations (updaste, create, delete, list, ...)
+
 Return data format
 Non-staff: 
 {"grades":[
@@ -62,3 +64,10 @@ class GradeAPIView(viewsets.ModelViewSet):
 
         else: 
             return self.list(request)
+
+
+'''
+GradeServiceAPIView: extra service api
+'''
+class GradeServiceAPIView():
+    pass

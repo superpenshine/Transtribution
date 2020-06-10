@@ -11,9 +11,9 @@ import * as actions from './store/actions/auth';
     
 function App(props) {
 
-	useEffect(() => {
-		props.isAuthenticated ? null : props.onTryAutoSignup();
-	});
+    useEffect(() => {
+        props.isAuthenticated ? null : props.onTryAutoSignup();
+    });
 
     return (
         <React.Fragment>
@@ -25,15 +25,15 @@ function App(props) {
 }
 
 function mapStateToProps(state) {
-	return {
-		isAuthenticated: state.token !== null, 
-	}
+    return {
+        isAuthenticated: state.token !== null, 
+    }
 }
 
 function mapDispatchToProps(dispatch) {
-	return {
-		onTryAutoSignup: () => dispatch(actions.authCheckState()), 
-	}
+    return {
+        onTryAutoSignup: () => dispatch(actions.authCheckState()), 
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

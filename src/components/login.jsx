@@ -3,10 +3,15 @@ import React, { Component } from 'react';
 import './login.css';
 import { connect } from 'react-redux';
 import * as actions from '../store/actions/auth';
+import ReactGA from 'react-ga';
 
 class LoginForm extends Component {
 
     handelLoginClick = e => {
+        ReactGA.event({
+            category: 'Auth', 
+            action: 'Login click'
+        })
         e.preventDefault();
         const username = e.target.username.value;
         const password = e.target.password.value;

@@ -22,7 +22,9 @@ class Footer extends Component {
 		        			{ this.props.isAuthenticated ? 
 		        				<React.Fragment>
 			            			<div className="p-2">
-			            				<font className='text-light'>{`${ this.props.isAdmin ? '管理员' : '学生' } ${ this.props.user }已登录`}</font>
+			            				<span style={{"verticalAlign":"middle"}}>
+				            				<font className='text-light'>{`${ this.props.isAdmin ? '管理员' : '学生' } ${ this.props.user }已登录`}</font>
+			            				</span>
 			            			</div>
 			            			<div className="p-2">
 				            			<button className="btn btn-light btn-sm" onClick={ this.props.onLogout } tabIndex='1'>退出</button>
@@ -36,7 +38,9 @@ class Footer extends Component {
 			            	}
 		            		
 		            		<div className="ml-auto p-2">
-			            		<font className='text-light'>Copyright © 2020 Haotian Shen. All rights reserved.</font>
+			            		<span style={{"verticalAlign":"middle"}}>
+				            		<font className='text-light'>Copyright © 2020 Haotian Shen. All rights reserved.</font>
+				            	</span>
 		            		</div>
 		            	</div>
 		        	</div>
