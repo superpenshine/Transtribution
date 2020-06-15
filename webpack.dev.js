@@ -7,7 +7,7 @@ module.exports = merge(common, {
     mode: 'development', 
     // devtool: 'none', // not using eval
     output: {
-        path: path.join(__dirname, '/dist'), 
+        path: path.join(__dirname, '/dist'), // not used if using dev server
         filename: '[name].index_bundle.js', 
     }, 
     module: {
