@@ -26,7 +26,7 @@ class GradeForm extends Component {
         this.setState({ selected });
     };
 
-    // Select all checkbox handler
+    // Select all on current page
     handleSelectAll = ids => {
         console.log('selected all');
         let selected = [...this.state.selected];
@@ -38,7 +38,7 @@ class GradeForm extends Component {
         this.setState({ selected });
     };
 
-    // Select all checkbox handler (remove all)
+    // Deselect all on current page
     handleDeselectAll = ids => {
         console.log('deselected all');
         let selected = this.state.selected;
@@ -49,6 +49,12 @@ class GradeForm extends Component {
         });
         this.setState({ selected });
     };
+
+    // Deselect all selected
+    handleGlobalDeselect = () => {
+        console.log('global deselect');
+        this.setState({ selected: [] });
+    }
 
     render() {
         // Spinner
@@ -68,6 +74,7 @@ class GradeForm extends Component {
                 <Rows onSelectClick={ this.handleSelectClick }
                       onSelectAll={ this.handleSelectAll }
                       onDeSelectAll={ this.handleDeselectAll }
+                      onGlobalDeselect={ this.handleGlobalDeselect }
                       selected={ this.state.selected } 
                       rowsPerPage={ this.state.rowsPerPage }
                 />

@@ -1,0 +1,44 @@
+.panelCommon {
+	overflow: hidden;
+}
+
+.panel {
+	/*max-height: 0;*/
+	display: none;
+}
+
+.panel_show {
+	/*display: table-row;*/
+}
+
+.panelInner {
+
+	/*border-width: 1px;
+	border-color: red;
+	border-style: solid;*/
+
+	min-height: 100px;
+	justify-content: center;
+	align-items: center;
+	display: flex;
+}
+
+.chartDiv {
+	display: inline-block;
+	/*margin-right: 50px;*/
+}
+
+.attrDiv {
+
+	/*border-width: 1px;
+	border-color: pink;
+	border-style: solid;*/
+
+	max-width: 400px;
+	display: flex;
+	flex-wrap: wrap !important;
+}
+
+.attrItemDiv {
+	min-width: 150px;
+}

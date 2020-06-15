@@ -3,6 +3,7 @@ import React from 'react';
 import GradeForm from './components/gradeForm';
 import LoginForm from './components/login';
 import Footer from './components/footer';
+import TrackedPage from './components/trackedPage';
 
 import { useEffect } from 'react';
 import { Route } from 'react-router-dom';
@@ -15,10 +16,11 @@ function App(props) {
         props.isAuthenticated ? null : props.onTryAutoSignup();
     });
 
+    // '/grades' route for client side routing which has not been used yet.
     return (
         <React.Fragment>
-            <Route exact path='/api/grades' component={ props.isAuthenticated ? GradeForm : LoginForm }/>
-            <Route exact path='/' component={ props.isAuthenticated ? GradeForm : LoginForm }/>
+            <Route exact path='/grades' component={ props.isAuthenticated ? TrackedPage(GradeForm) : TrackedPage(LoginForm) }/>
+            <Route exact path='/' component={ props.isAuthenticated ? TrackedPage(GradeForm) : TrackedPage(LoginForm) }/>
             <Footer />
         </React.Fragment>
     );

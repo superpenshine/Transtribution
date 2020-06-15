@@ -1,12 +1,14 @@
 # Api view of grades
 from home.models import Grade
 # from Serializers.GradeSerializer import FlatGradeSerializer
-from api.services import handelFileSubmit, user_grade_data
+from api.services import handelFileSubmit, userGradeData, sendEmail, createTmpFile
 
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser
+
+from django.views import View
 
 '''
 GradeAPIView: basic oprations (updaste, create, delete, list, ...)
@@ -43,8 +45,7 @@ class GradeAPIView(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         user = request.user
-        grades = user_grade_data(request.user)
-
+        grades = userGradeData(user)
         return Response({"grades": grades, 
                          "user": user.name, 
                          "className": user.class_name, 
@@ -57,7 +58,6 @@ class GradeAPIView(viewsets.ModelViewSet):
 
     @action(methods=['post'], detail=False, permission_classes=[IsAdminUser])
     def createOrUpdate(self, request, *args, **kwargs):
-
         errors = handelFileSubmit(request.FILES['file'])
         if errors:
             return Response({'errMsg': [error for error in errors if error]}, status=400)
@@ -65,9 +65,17 @@ class GradeAPIView(viewsets.ModelViewSet):
         else: 
             return self.list(request)
 
+    @action(methods=['post'], detail=False)
+    def sendReport(self, request, *args, **kwargs):
+        user = request.user
+        grades = userGradeData(user, pk__in=request.data['ids'])
+        tmp_file = createTmpFile(grades, prefix='GradesReport-', suffix='.xlsx')
+        e = sendEmail(request.data['addresses'], 
+            text='This is an auto-generated grade report (see attachment) from Transtribution.', 
+            files=tmp_file)
 
-'''
-GradeServiceAPIView: extra service api
-'''
-class GradeServiceAPIView():
-    pass
+        if errors:
+            return Response({'errMsg': e}, status=400)
+
+        else:
+            return Response(status=200)

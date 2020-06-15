@@ -1,6 +1,7 @@
 import React from 'react'
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import ReactGA from 'react-ga';
 
 export const authStart = () => {
     return {
@@ -28,6 +29,10 @@ export const authFail = () => {
 export const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('expirationDate');
+    ReactGA.event({
+                    category: 'Auth', 
+                    action: 'Log out'
+                });
     return {
         type: actionTypes.AUTH_LOGOUT 
     };
@@ -69,8 +74,12 @@ export const authLogin = (username, password) => {
         )
         .then(
             res => {
+                ReactGA.event({
+                    category: 'Auth', 
+                    action: 'Login success'
+                });
                 const token = res.data.token;
-                const expirationDate = new Date(new Date().getTime() + 7200 * 1000)
+                const expirationDate = new Date(new Date().getTime() + 7200 * 1000);
                 localStorage.setItem('token', token);
                 localStorage.setItem('username', username);
                 localStorage.setItem('expirationDate', expirationDate);
@@ -79,6 +88,10 @@ export const authLogin = (username, password) => {
             }
         )
         .catch(err => {
+                ReactGA.event({
+                    category: 'Auth', 
+                    action: 'Login failed'
+                });
                 console.log(err);
                 dispatch(authFail());
             }

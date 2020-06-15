@@ -13,6 +13,7 @@ class Footer extends Component {
     }
 
 	render() {
+		let isAdmin = this.props.isAdmin;
 		return (
 			<React.Fragment>
 		        <footer className="footer">
@@ -22,14 +23,14 @@ class Footer extends Component {
 		        			{ this.props.isAuthenticated ? 
 		        				<React.Fragment>
 			            			<div className="p-2">
-			            				<span style={{"verticalAlign":"middle"}}>
-				            				<font className='text-light'>{`${ this.props.isAdmin ? '管理员' : '学生' } ${ this.props.user }已登录`}</font>
+			            				<span style={{ "verticalAlign":"middle" }}>
+				            				<font className='text-light'>{`${ isAdmin ? '管理员' : '学生' } ${ this.props.user }已登录`}</font>
 			            				</span>
 			            			</div>
 			            			<div className="p-2">
 				            			<button className="btn btn-light btn-sm" onClick={ this.props.onLogout } tabIndex='1'>退出</button>
 				            		</div> 
-				            		{ this.props.isAdmin ? 
+				            		{ isAdmin ? 
 					            		<div className="p-2">
 					            			<button className="btn btn-light btn-sm" onClick={ this.toggleUploadOverlay } tabIndex='2'>上传</button>
 					            		</div> : null
@@ -45,7 +46,7 @@ class Footer extends Component {
 		            	</div>
 		        	</div>
 		        </footer>
-		        <Overlay onExpandOverlay={ this.toggleUploadOverlay } />
+		        {isAdmin ? <Overlay onExpandOverlay={ this.toggleUploadOverlay } /> : null}
 			</React.Fragment>
 		)
 	}

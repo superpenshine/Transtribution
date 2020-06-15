@@ -5,3 +5,19 @@
 .fadeInOnHover:hover {
 	background-color: rgba(0, 0, 0, 0.2);
 }
+
+.iconWrap {
+	top: -12px;
+	height: 23px;
+	text-align: center;
+	position: relative;
+	user-select: none;
+}
+
+.table td {
+	vertical-align: middle;
+}
+
+.colIconDiv {
+	min-width: 75px;
+}

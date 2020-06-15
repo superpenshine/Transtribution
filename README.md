@@ -32,15 +32,15 @@ Login with admin account at http://hyc.haotianshen.com/admin/, choose grades/stu
 
 ## 计划 TODO List:
 
-- [ ]  网站上线 having a basic running site
+- [x]  网站上线 having a basic running site
 
-- [x]  成绩打包邮件发送 email module (thread testing)
+- [x]  成绩打包邮件发送 email module (backend done, implementing front end)
 
-- [x]  更进一步的权限管理, 例如教师只能修改自己学生的成绩 (database redesigned)
+- [ ]  更进一步的权限管理, 例如教师只能修改自己学生的成绩 (database redesign)
 
-- [x]  微信登陆 wechat login (currently blocked by not having a proper account, pls contact if you can help.)
+- [ ]  微信登陆 wechat login (currently blocked by not having a proper account, pls contact if you can help.)
 
-- [x]  网页设计 UI improvement (low priority)
+- [ ]  网页设计 UI improvement (low priority)
 
 
 

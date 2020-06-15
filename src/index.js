@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 // CSS & components
+import './vectorIcon.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
@@ -15,9 +16,8 @@ import reducer from './store/reducers/auth';
 // Google analytics
 import ReactGA from 'react-ga';
 
+require('react-web-vector-icons/fonts');
 ReactGA.initialize('UA-108528327-2', {debug: true});
-// Only tracks the home page load, to separate pageviews, use HOC to wrap route component
-ReactGA.pageview(window.location.pathname)
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnhances(
     applyMiddleware(thunk)
@@ -35,3 +35,6 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+// Use this in browser console to check tab index
+// document.addEventListener('keyup', function() {console.log(document.activeElement)})

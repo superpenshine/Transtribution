@@ -1,3 +1,4 @@
+const path = require('path');
 
 module.exports = {
     entry: {
@@ -7,11 +8,12 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.jsx?$/, 
-                exclude: /node_modules/, 
+                test: /\.(js|jsx)?$/, 
+                exclude: /node_modules\/(?!(react-native-vector-icons)\/).*/, 
                 use: {
                     loader: 'babel-loader'
                 } 
+
             }, 
             {
                 test: /\.(jpe?g|png|gif|svg|ico)$/i,
@@ -29,7 +31,15 @@ module.exports = {
             {
                 test: /\.html$/, 
                 use: ["html-loader"]
-            }
+            }, 
+            // For vector icons
+            {
+                test: /\.ttf$/,
+                loader: "file-loader", // or url-loader
+                options: {
+                    name: './fonts/[name].[ext]'
+                }
+            },
         ]
     }, 
     resolve: {extensions: ['.js', '.jsx']}, 

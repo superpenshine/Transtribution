@@ -1,0 +1,60 @@
+.checkLabel-container {
+    position: relative;
+    /*set to checkmark width*/
+    width: 23px;
+    margin-bottom: 0;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkLabel-container input {
+    opacity: 0;
+    cursor: pointer;
+    height: 0.1px;
+    width: 0.1px;
+}
+
+.checkmark {
+    border-radius: 3px;
+    position: absolute;
+    bottom: 0;
+    height: 23px;
+    width: 23px;
+    background-color: rgb(52, 58, 64);
+}
+
+.checkLabel-container:hover .checkmark {
+  background-color: #656b71;
+}
+
+/* When the checkbox is checked, add a blue background */
+/*.checkLabel-container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}*/
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkLabel-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkLabel-container .checkmark:after {
+    left: 7px;
+    top: 2px;
+    width: 10px;
+    height: 15px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

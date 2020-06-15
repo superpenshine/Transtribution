@@ -2,7 +2,14 @@
 import React, { Component } from 'react';
 
 class Pagination extends Component {
-
+	shouldComponentUpdate(nextProps, nextState) {
+		if (this.props.numPages == nextProps.numPages &&
+			this.props.currentPage == nextProps.currentPage) {
+			return false;
+		}
+	    return true;
+	};
+	
 	// Get array of pages
 	pageNumbers = () => {
 		// console.log(Array(this.props.numPages).keys());

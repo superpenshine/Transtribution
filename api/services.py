@@ -1,17 +1,25 @@
 from home.models import Grade
+from django.conf import settings
 from Serializers.GradeSerializer import GradeListSerializer, FlatGradeSerializer
 
 # File parse
 import openpyxl
 import numpy as np
 
+# File preparation
+from tempfile import NamedTemporaryFile
+
 # Email
+import os
 import asyncio
-from concurrent.futures import ThreadPoolExecutor
 import smtplib
-from django.conf import settings
-from email.message import EmailMessage
+from concurrent.futures import ThreadPoolExecutor
+from email import encoders
 from email.headerregistry import Address
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.utils import COMMASPACE
 
 # Grade analysis
 from django.db.models import Count, Avg, Max, Min, Q
@@ -32,22 +40,53 @@ def threaded(thread_pool=_DEFAULT_POOL):
 Send email to address with given subj and content
 smtp server and credentials must be set as env variables in advance.
 to: aaa@aaa.aaa or [aaa@aaa.aaa, ...]
+
+NOTE: django.core.mail is an easier choice here.
 '''
 @threaded()
-def send_email(to, subject='Email from Transtribution', content=''):
-    msg = EmailMessage()
-    msg['From'] = Address(display_name=settings.SMTP_HOST_USER.split('@')[0].replace('.', ''), addr_spec=to)
-    msg['To'] = Address(display_name=to.split('@')[0].replace('.', ''), addr_spec=to)
+def sendEmail(to, subject='Email from Transtribution', text='', files=[]):
+    if isinstance(to, str): to = [to]
+    if isinstance(files, str): files = [files]
+    msg = MIMEMultipart()
+    msg['From'] = settings.SMTP_HOST_USER
+    msg['To'] = COMMASPACE.join(to)
     msg['Subject'] = subject
-    msg.set_content(content)
+    msg.attach(MIMEText(text))
 
+    for file in files:
+        with open(file, 'rb') as f:
+            part = MIMEApplication(f.read(), Name=os.path.basename(file))
+        part['Content-Disposition'] = f"attachment; filename={os.path.basename(file)}"
+        msg.attach(part)
     try:
         with smtplib.SMTP_SSL(settings.SMTP_HOST_ADDR, port=settings.SMTP_HOST_PORT) as smp:
             smp.login(settings.SMTP_HOST_USER, settings.SMTP_HOST_PWD)
             smp.send_message(msg)
 
     except Exception as e:
+        for file in files: os.remove(file)
         return e
+
+    for file in files: os.remove(file)
+
+'''
+Return a temporary xlsx file with given data
+Input: [{a: 1, b:3}, {a:2, b:4}, ...]
+
+'''
+def createTmpFile(data, prefix='', suffix=''):
+    wb = openpyxl.Workbook()
+    tmp = NamedTemporaryFile(prefix=prefix, suffix=suffix, delete=False)
+
+    ws = wb.active
+    col_names = list(data[0].keys()) if data else []
+    ws.append(col_names)
+    for row in data:
+        ws.append(list(row.values()))
+
+    wb.save(tmp.name)
+    # tmp.seek(0)
+    return tmp.name
 
 # Student identity attributes
 pri_key_en = {
@@ -142,12 +181,14 @@ def handelFileSubmit(file):
     return ser.errors
 
 # Return grades of an user model obj
-def user_grade_data(user):
+def userGradeData(user, **kwargs):
     # If not logged in request.user is anonymous and is_staff=false
     if user.is_staff:
-        grade_data = FlatGradeSerializer(Grade.objects.all(), many=True).data
+        grade_data = FlatGradeSerializer(Grade.objects.filter(**kwargs), many=True).data
+        
     else:
-        grade_data = FlatGradeSerializer(Grade.objects.filter(name=user), many=True).data
+        grade_data = FlatGradeSerializer(Grade.objects.filter(name=user, **kwargs), many=True).data
+
         class_grades = Grade.objects.filter(name__class_name=user.class_name)
         for grade in grade_data:
             subject, test, score = grade['subject'], grade['test'], grade['score']
@@ -155,5 +196,7 @@ def user_grade_data(user):
             grade.update(class_grades.aggregate(rank=Count('id', filter=Q(subject=subject, test=test, score__gte=score))))
             # Get test stats
             grade.update(class_grades.get_test_stats(subject, test, pass_grade=60))
+            grade['avg'] = round(grade['avg'], 1)
 
     return grade_data
+

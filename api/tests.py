@@ -1,10 +1,11 @@
 from django.test import TestCase, SimpleTestCase
-from api.services import send_email, threaded
+from api.services import sendEmail, threaded
 # Create your tests here.
 
 class EmailTestCase(SimpleTestCase):
+    # Will fail when thread running
     def test_email_send(self):
-        e = send_email("1016974398@qq.com", subject='test', content='test')
+        e = sendEmail(["1016974398@qq.com"], subject='test', text='test', files='C:\\Users\\hshen\\Desktop\\英语第四单元三2班.xlsx')
         self.assertIsNone(e)
 
 class ThreadTestCase(SimpleTestCase):
