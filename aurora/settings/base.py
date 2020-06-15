@@ -96,7 +96,7 @@ USE_TZ = True
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "Static"), # Backend static files
     os.path.join(BASE_DIR, "dist"), # Frontend packed static files
-    os.path.join(BASE_DIR, "dist/font"), # Frontend packed static files
+    os.path.join(BASE_DIR, "dist/fonts"), # Frontend packed static files
 ]
 # Where to put all static files collected under STATICFILES_DIRS into
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
