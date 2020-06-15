@@ -95,9 +95,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "Static"), # Backend static files
-    os.path.join(BASE_DIR, "dist"), # Frontend packed static files
+    # os.path.join(BASE_DIR, "dist"), # Frontend packed static files
 ]
 # Where to put all static files collected under STATICFILES_DIRS into
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# folder where static file copies from STATIC_ROOT is served
+# folder where static file copies from STATIC_ROOT is served, apps can use this url to access static fiels.
 STATIC_URL = '/static/'

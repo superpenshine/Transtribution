@@ -11,7 +11,10 @@
 	height: 23px;
 	text-align: center;
 	position: relative;
-	user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .table td {
