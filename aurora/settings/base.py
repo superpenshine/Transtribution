@@ -100,4 +100,4 @@ STATICFILES_DIRS = [
 # Where to put all static files collected under STATICFILES_DIRS into
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # folder where static file copies from STATIC_ROOT is served, apps can use this url to access static fiels.
-STATIC_URL = '/static/'
+STATIC_URL = '/abcabc/'
