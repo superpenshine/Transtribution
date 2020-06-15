@@ -28,12 +28,12 @@
     font-weight:400;
     src:url(/static/fonts/FontAwesome.ttf) format('truetype')
 }
-@font-face{
+/*@font-face{
     font-family:FontAwesome5;
     font-style:normal;
     font-weight:400;
     src:url(/static/fonts/FontAwesome5.ttf) format('truetype')
-}
+}*/
 @font-face{
     font-family:FontAwesome5Brands;
     font-style:normal;
