@@ -33,13 +33,13 @@
     font-style:normal;
     font-weight:400;
     src:url(/static/fonts/FontAwesome5.ttf) format('truetype')
-}*/
+}
 @font-face{
     font-family:FontAwesome5Brands;
     font-style:normal;
     font-weight:400;
     src:url(/static/fonts/FontAwesome5_Brands.ttf) format('truetype')
-}
+}*/
 @font-face{
     font-family:Foundation;
     font-style:normal;
