@@ -7,8 +7,9 @@ module.exports = merge(common, {
     mode: 'development', 
     // devtool: 'none', // not using eval
     output: {
-        path: path.join(__dirname, '/dist'), // not used if using dev server
+        path: path.join(__dirname, 'dist'), // not used if using dev server
         filename: '[name].index_bundle.js', 
+        publicPath: '/static/'
     }, 
     module: {
         rules: [
@@ -22,8 +23,11 @@ module.exports = merge(common, {
     devServer: {
         liveReload: false, // HMR enabled, disable live reload
         proxy: {
-          '/api': {
+            '/api': {
                 target: 'http://localhost:8000' // Redirect to localhost:8000 for django rest api
+            }, 
+            '/' : {
+                target: 'http://localhost:8080/static/'
             }
         }
     }, 

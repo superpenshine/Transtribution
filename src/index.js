@@ -17,9 +17,11 @@ import reducer from './store/reducers/auth';
 import ReactGA from 'react-ga';
 
 require('react-web-vector-icons/fonts');
-ReactGA.initialize('UA-108528327-2', {debug: true});
-const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducer, composeEnhances(
+ReactGA.initialize('UA-108528327-2', {debug: false});
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: false, traceLimit: 10 }) || compose;
+const store = createStore(reducer, composeEnhancers(
     applyMiddleware(thunk)
 ));
 

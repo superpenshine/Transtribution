@@ -18,7 +18,7 @@ const attr_hidden = {'平均分':'avg', '最高分':'max', '最低分':'min',
 
 const cols_admin = {'姓名':'name', '学科':'subject', '考试':'test', 
                     '分数':'score'};
-const cols_width_admin = ['15%', '15%', '22.5%', '5%'];
+const cols_width_admin = ['25%', '25%', '25%', '7%'];
 
 class Rows extends Component {
     state = {
@@ -81,7 +81,7 @@ class Rows extends Component {
                             <tr>
                                 { Object.entries(isAdmin ? cols_admin : cols).map(([key, val], i) => 
                                     <th className="fadeInOnHover" 
-                                        style={{"width": isAdmin ? null : cols_width[i]}}
+                                        style={{"width": isAdmin ? cols_width_admin[i] : cols_width[i]}}
                                         onClick = { () => this.handleSortClick(val)} 
                                         scope='col' 
                                         key={ i }>

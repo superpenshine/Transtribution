@@ -1,0 +1,66 @@
+.pagination {
+	max-width: 70%;
+	padding-top: .2rem;
+	padding-bottom: 70px;
+	border-radius: 0;
+	margin-left: .5rem;
+	margin-right: .5rem;
+}
+
+.paginateBtn {
+	max-width: 5rem;
+	width: 20%;
+	padding-top: .2rem;
+}
+
+.paginateBtn .page-link {
+	margin: 0;
+}
+
+.paginationNavbar {
+	display: flex;
+	height: 60px;
+	overflow-y: hidden;
+}
+
+.pagination .page-item:first-child {
+	padding-left: .2rem;
+
+}
+
+.pagination .page-item:last-child {
+	padding-right: .2rem;
+	
+}
+
+/*Overwrite bootstrap*/
+.pagination .page-item:first-child .page-link {
+	/*margin-left: -1px;*/
+	/*border-top-left-radius: 0;*/
+	/*border-bottom-left-radius: 0;*/
+}
+/*Overwrite bootstrap*/
+.pagination .page-item:last-child .page-link {
+	/*border-top-right-radius: 0;*/
+	/*border-bottom-right-radius: 0;*/
+}
+
+.paginateBtn:first-child .page-link {
+	width: 100%;
+	border-radius: .2rem;
+	/*border-top-left-radius: .2rem;
+	border-bottom-left-radius: .2rem;*/
+}
+
+.paginateBtn:last-child .page-link {
+	width: 100%;
+	border-radius: .2rem;
+	/*border-top-right-radius: .2rem;
+	border-bottom-right-radius: .2rem;*/
+}
+
+.paginateBtn.disabled .page-link {
+	color: #6c757d;
+	pointer-events: none;
+	cursor: auto;
+}

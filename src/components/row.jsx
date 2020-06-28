@@ -35,13 +35,12 @@ class Row extends Component {
     render() {
         let panelClass = classNames({
             'panelCommon': true, 
-            'panel_show': this.state.show_panel, 
             'panel': !this.state.show_panel, 
         });
 
         return (
             <React.Fragment>
-                <tr onClick={ this.togglePanel }>
+                <tr onClick={ this.togglePanel } style={{"cursor": "pointer"}}>
                     { Object.entries(this.props.attr_show).map(([key, val], i) => 
                         <td key={ i }>{ this.props.grade[val] }</td>
                     )}

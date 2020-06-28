@@ -5,7 +5,7 @@ class Checklabel extends Component {
     render() {
         return (
             <label className="checkLabel-container">
-                <input type="checkbox" checked={ this.props.checked } onChange={ () => this.props.handleChange() }/>
+                <input tabIndex="-1" type="checkbox" checked={ this.props.checked } onChange={ () => this.props.handleChange() }/>
                 <span className="checkmark"/>
             </label>
         );
