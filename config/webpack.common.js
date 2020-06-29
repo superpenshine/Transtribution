@@ -2,7 +2,8 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        index_bundle: './src/index.js', 
+        index_bundle: path.resolve('./src/index.js'), 
+        // index_bundle: './src/index.js', 
         // vender: "./src/vendor.js" // Multi-entry setting
     }, 
     module: {

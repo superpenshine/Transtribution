@@ -10,7 +10,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = merge(common, {
     mode: 'production', 
     output: {
-        path: path.join(__dirname, '/dist'), 
+        // path: path.join(__dirname, '/dist'), 
+        path: path.resolve('./dist'), 
         filename: '[name].[contentHash].js', 
         publicPath: '/static/', 
     }, 
@@ -41,8 +42,10 @@ module.exports = merge(common, {
         }), 
         // Insert <script> to custom template
         new HtmlWebpackPlugin({
-            template: './public/index.html', 
-            favicon: "./public/favicon.ico", 
+            template: path.resolve('./public/index.html'), 
+            favicon: path.resolve("./public/favicon.ico"), 
+            // template: './public/index.html', 
+            // favicon: "./public/favicon.ico", 
             removeComments: true, 
             removeAttributeQuates: true, 
             collapseWhitespace: true
