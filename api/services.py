@@ -97,6 +97,9 @@ pri_key_en = {
         '名字': 'name', 
         'name': 'name', 
     '密码': 'password', # for new student creation
+        '身份证': 'password', 
+        'pwd': 'password',
+        'password': 'password',
 }
 # Grades attributes
 key_en = {

@@ -12,7 +12,8 @@ module.exports = merge(common, {
     output: {
         // path: path.join(__dirname, '/dist'), 
         path: path.resolve('./dist'), 
-        filename: '[name].[contentHash].js', 
+        // filename: '[name].[contentHash].js', // use for standalone frontend
+        filename: '[name].js', // django handles md5 hashing
         publicPath: '/static/', 
     }, 
     optimization: {
@@ -38,7 +39,8 @@ module.exports = merge(common, {
         new CleanWebpackPlugin(), 
         // Extract to separate css files
         new MiniCssExtractPlugin({
-            filename: "[name].[contentHash].css", 
+            // filename: "[name].[contentHash].css", // use for standalone frontend
+            filename: "[name].css",  // django handles md5 hashing
         }), 
         // Insert <script> to custom template
         new HtmlWebpackPlugin({
