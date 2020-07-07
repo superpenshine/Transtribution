@@ -34,7 +34,7 @@ class Row extends Component {
 
     render() {
         let panelClass = classNames({
-            'panelCommon': true, 
+            'panelInner': true, 
             'panel': !this.state.show_panel, 
         });
 
@@ -48,10 +48,11 @@ class Row extends Component {
                                     checked={ this.props.checked }/>
                     </td>
                 </tr>
-                    { !this.props.attr_hidden ? null :
-                        <tr className={ panelClass }>
-                            <td colSpan="100%">
-                                <div className="panelInner">
+                { !this.props.attr_hidden ? null :
+                    <tr>    
+                        <td colSpan="100%" style={{"padding": 0}}>
+                            <div className={ panelClass }>
+                                <div className="panelInnerPaddingWrapper">
                                     <div className="chartDiv"></div>
                                     <div className="attrDiv">
                                         { Object.entries(this.props.attr_hidden).map(([key, val], i) => 
@@ -62,9 +63,10 @@ class Row extends Component {
                                         )}
                                     </div>
                                 </div>
-                            </td>
-                        </tr>
-                    }
+                            </div>
+                        </td>
+                    </tr>
+                }
             </React.Fragment>
         );
 

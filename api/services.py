@@ -1,6 +1,10 @@
+'''
+Provide services for api views, 
+db ops should be treated as models querysets
+'''
 from home.models import Grade
 from django.conf import settings
-from Serializers.GradeSerializer import GradeListSerializer, FlatGradeSerializer
+from Serializers.GradeSerializer import GradeListSerializer
 
 # File parse
 import openpyxl
@@ -21,8 +25,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import COMMASPACE
 
-# Grade analysis
-from django.db.models import Count, Avg, Max, Min, Q
+# Grade Analytics
+from django.db.models import Count, Avg, Max, Min, Q, F
 
 _DEFAULT_POOL = ThreadPoolExecutor()
 
@@ -183,15 +187,24 @@ def handelFileSubmit(file):
 
     return ser.errors
 
-# Return grades of an user model obj
-def userGradeData(user, **kwargs):
-    # If not logged in request.user is anonymous and is_staff=false
-    if user.is_staff:
-        grade_data = FlatGradeSerializer(Grade.objects.filter(**kwargs), many=True).data
-        
-    else:
-        grade_data = FlatGradeSerializer(Grade.objects.filter(name=user, **kwargs), many=True).data
 
+'''
+Return all data if user is staff, 
+else return user grades and class grades stats
+'''
+def getUserGrades(user, **extra_fields):
+    qset = Grade.objects.filter(**extra_fields)
+    if not user.is_staff:
+        qset = qset.filter(name=user)
+    grade_data = list(qset.values(
+                            'test', 'subject', 'score', 'id', 
+                            student_name=F('name_id__name'), 
+                            password=F('name_id__password'), 
+                            student_id=F('name_id__student_id'), 
+                            class_name=F('name_id__class_name')
+                            ))
+
+    if not user.is_staff:
         class_grades = Grade.objects.filter(name__class_name=user.class_name)
         for grade in grade_data:
             subject, test, score = grade['subject'], grade['test'], grade['score']
@@ -202,4 +215,3 @@ def userGradeData(user, **kwargs):
             grade['avg'] = round(grade['avg'], 1)
 
     return grade_data
-

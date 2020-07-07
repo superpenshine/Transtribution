@@ -16,7 +16,7 @@ const attr_hidden = {'平均分':'avg', '最高分':'max', '最低分':'min',
             '及格人数/考试人数':['pass_num', 'count'], 
             '排名/考试人数':['rank', 'count']};
 
-const cols_admin = {'姓名':'name', '学科':'subject', '考试':'test', 
+const cols_admin = {'姓名':'student_name', '学科':'subject', '考试':'test', 
                     '分数':'score'};
 const cols_width_admin = ['25%', '25%', '25%', '7%'];
 

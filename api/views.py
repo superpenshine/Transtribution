@@ -1,7 +1,7 @@
 # Api view of grades
 from home.models import Grade
 # from Serializers.GradeSerializer import FlatGradeSerializer
-from api.services import handelFileSubmit, userGradeData, sendEmail, createTmpFile
+from api.services import handelFileSubmit, sendEmail, createTmpFile, getUserGrades
 
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -30,9 +30,9 @@ Non-staff:
  
 Staff: 
 {"grades":[
-    {name":"张益凯","password":"1324","student_id":1,"class_name":"一（三）班",
+    {"name":"张益凯","password":"1324","student_id":1,"class_name":"一（三）班",
     "test":"期末考试","subject":"数学","score":99.0,"id":38}
-    {name":"常梦冉","password":"1324","student_id":1,"class_name":"一（三）班",
+    {"name":"常梦冉","password":"1324","student_id":1,"class_name":"一（三）班",
     "test":"期末考试","subject":"语文","score":99.0,"id":38}
     ],
  "user":"admin",
@@ -45,7 +45,8 @@ class GradeAPIView(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         user = request.user
-        grades = userGradeData(user)
+
+        grades = getUserGrades(user)
         return Response({"grades": grades, 
                          "user": user.name, 
                          "className": user.class_name, 
@@ -68,7 +69,7 @@ class GradeAPIView(viewsets.ModelViewSet):
     @action(methods=['post'], detail=False)
     def sendReport(self, request, *args, **kwargs):
         user = request.user
-        grades = userGradeData(user, pk__in=request.data['ids'])
+        grades = getUserGrades(user, pk__in=request.data['ids'])
         tmp_file = createTmpFile(grades, prefix='GradesReport-', suffix='.xlsx')
         e = sendEmail(request.data['addresses'], 
             text='This is an auto-generated grade report (see attachment) from Transtribution.', 

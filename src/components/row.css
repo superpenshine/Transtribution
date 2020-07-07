@@ -1,10 +1,11 @@
-.panelCommon {
-	overflow: hidden;
+.panelInnerPaddingWrapper {
+	padding: .75rem;
+	display: flex;
 }
 
 .panel {
-	/*max-height: 0;*/
-	display: none;
+	max-height: 0px !important;
+	opacity: 0 !important;
 }
 
 .panelInner {
@@ -12,11 +13,13 @@
 	/*border-width: 1px;
 	border-color: red;
 	border-style: solid;*/
-
-	min-height: 100px;
+	opacity: 1;
+	max-height: 200px;
+	overflow: hidden;
 	justify-content: center;
 	align-items: center;
 	display: flex;
+	transition: max-height .25s ease-out, opacity .25s;
 }
 
 .chartDiv {
@@ -25,11 +28,7 @@
 }
 
 .attrDiv {
-
-	/*border-width: 1px;
-	border-color: pink;
-	border-style: solid;*/
-
+	/*padding: .75rem;*/
 	max-width: 400px;
 	display: flex;
 	flex-wrap: wrap !important;

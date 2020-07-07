@@ -4,23 +4,6 @@ from Serializers.StudentSerializer import StudentSerializer, StudentSoftSerializ
 from django.core.exceptions import MultipleObjectsReturned
 
 '''
-For serialization, model obj(or obj with many=true) to python dict
-'''
-class FlatGradeSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(source='name.name', read_only=True)
-    student_id = serializers.IntegerField(source='name.student_id', read_only=True)
-    class_name = serializers.CharField(source='name.class_name', read_only=True)
-    password = serializers.CharField(source='name.password', read_only=True)
-    test = serializers.CharField(read_only=True)
-    subject = serializers.CharField(read_only=True)
-    score = serializers.FloatField(read_only=True)
-    id = serializers.IntegerField(read_only=True)
-
-    class Meta:
-        model = Grade
-        fields = ('name', 'student_id', 'class_name', 'password', 'test', 'subject', 'score', 'id')
-
-'''
 For deserialization, python dict to model obj
 Undocumented serializer validation steps: 
     # 1. Field deserialization called (serializer.to_internal_value and field.run_validators)
