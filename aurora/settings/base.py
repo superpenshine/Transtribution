@@ -1,4 +1,5 @@
 import os
+import re
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -101,3 +102,10 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # folder where static file copies from STATIC_ROOT is served, apps can use this url to access static fiels.
 STATIC_URL = '/static/'
+
+# Backup emails
+delimiters = ';'
+SMTP_SERVERS = zip(re.split(delimiters, os.environ.get('SMTP_HOST_USER')), 
+                re.split(delimiters, os.environ.get('SMTP_HOST_ADDR')), 
+                re.split(delimiters, os.environ.get('SMTP_HOST_PORT')), 
+                re.split(delimiters, os.environ.get('SMTP_HOST_PWD')))

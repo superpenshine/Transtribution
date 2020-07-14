@@ -1,0 +1,38 @@
+.panelIndicatorSpan {
+	margin-top: 2px;
+	width: 20px;
+	height: 20px;
+	position: relative;
+	transition: .25s ease-out;
+}
+
+.panelIndicatorSpan.show {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.panelIndicatorSpan:before {
+	content: "";
+    height: 11.5px;
+    width: 20px;
+    border: solid rgb(188, 194, 199);
+    border-width: 0 0 5px 0;
+    display: block;
+    position: absolute;
+    transition: .25s ease-out;
+}
+
+.panelIndicatorSpan:after {
+	content: "";
+	width: 11.5px;
+    height: 20px;
+    border: solid rgb(188, 194, 199);
+    border-width: 0 5px 0 0;
+    display: block;
+    position: absolute;
+}
+
+.panelIndicatorSpan.show:before {
+	opacity: 0;
+}

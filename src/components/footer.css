@@ -16,3 +16,20 @@ footer {
 	margin: auto;
 	max-width: 90%;
 }
+
+.fadeInOnHover:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+	transition: .2s;
+}
+
+.iconWrap {
+	top: 2px;
+	left: -2px;
+    position: relative;
+	height: 33px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}

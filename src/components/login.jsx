@@ -55,7 +55,7 @@ class LoginForm extends Component {
 const mapStateToProps = (state) => {
     return {
         loading: state.loading, 
-        msg: state.error
+        msg: state.msg
     }
 };
 

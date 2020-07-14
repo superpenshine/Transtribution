@@ -42,7 +42,9 @@ def threaded(thread_pool=_DEFAULT_POOL):
 
 '''
 Send email to address with given subj and content
-smtp server and credentials must be set as env variables in advance.
+Smtp server and credentials must be set as env variables
+Seperate smtp servers with ";" in env variables e.g: abc@gmail.com;efg@hotmail.com...
+
 to: aaa@aaa.aaa or [aaa@aaa.aaa, ...]
 
 NOTE: django.core.mail is an easier choice here.
@@ -52,7 +54,6 @@ def sendEmail(to, subject='Email from Transtribution', text='', files=[]):
     if isinstance(to, str): to = [to]
     if isinstance(files, str): files = [files]
     msg = MIMEMultipart()
-    msg['From'] = settings.SMTP_HOST_USER
     msg['To'] = COMMASPACE.join(to)
     msg['Subject'] = subject
     msg.attach(MIMEText(text))
@@ -62,16 +63,22 @@ def sendEmail(to, subject='Email from Transtribution', text='', files=[]):
             part = MIMEApplication(f.read(), Name=os.path.basename(file))
         part['Content-Disposition'] = f"attachment; filename={os.path.basename(file)}"
         msg.attach(part)
-    try:
-        with smtplib.SMTP_SSL(settings.SMTP_HOST_ADDR, port=settings.SMTP_HOST_PORT) as smp:
-            smp.login(settings.SMTP_HOST_USER, settings.SMTP_HOST_PWD)
-            smp.send_message(msg)
 
-    except Exception as e:
-        for file in files: os.remove(file)
-        return e
+    errors = []
+    for user, smtpAddr, smtpPort, smtpPwd in settings.SMTP_SERVERS:
+        msg['From'] = user
+        try:
+            with smtplib.SMTP_SSL(smtpAddr, port=smtpPort) as smp:
+                smp.login(user, smtpPwd)
+                smp.send_message(msg)
+                break
+        except Exception as e:
+            errors.append(e)
+            continue
 
+    # Clean up tmp files(mandetary in windows)
     for file in files: os.remove(file)
+    if len(errors) == len(settings.SMTP_SERVERS): return errors
 
 '''
 Return a temporary xlsx file with given data
@@ -105,6 +112,7 @@ pri_key_en = {
         'pwd': 'password',
         'password': 'password',
 }
+
 # Grades attributes
 key_en = {
     '成绩': 'score', 
@@ -187,7 +195,6 @@ def handelFileSubmit(file):
 
     return ser.errors
 
-
 '''
 Return all data if user is staff, 
 else return user grades and class grades stats
@@ -196,7 +203,7 @@ def getUserGrades(user, **extra_fields):
     qset = Grade.objects.filter(**extra_fields)
     if not user.is_staff:
         qset = qset.filter(name=user)
-    grade_data = list(qset.values(
+    grade_data = list(qset.values(  
                             'test', 'subject', 'score', 'id', 
                             student_name=F('name_id__name'), 
                             password=F('name_id__password'), 

@@ -7,8 +7,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser
-
-from django.views import View
+from rest_framework.parsers import JSONParser
 
 '''
 GradeAPIView: basic oprations (updaste, create, delete, list, ...)
@@ -73,9 +72,9 @@ class GradeAPIView(viewsets.ModelViewSet):
         tmp_file = createTmpFile(grades, prefix='GradesReport-', suffix='.xlsx')
         e = sendEmail(request.data['addresses'], 
             text='This is an auto-generated grade report (see attachment) from Transtribution.', 
-            files=tmp_file)
+            files=tmp_file).result()
 
-        if errors:
+        if e:
             return Response({'errMsg': e}, status=400)
 
         else:

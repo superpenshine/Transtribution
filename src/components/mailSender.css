@@ -1,0 +1,16 @@
+.inputemail {
+	line-height: 2.5rem;
+    width: 50%;
+    min-width: 15rem;
+    font-size: 1.2rem;
+    background-color: rgb(242, 242, 242);
+    border-radius: 0.25rem;
+    margin: 0;
+    cursor: pointer;
+    border: 0px;
+    font-size: .85rem;
+}
+
+.inputemail:hover {
+	background-color: rgb(226, 230, 234);
+}

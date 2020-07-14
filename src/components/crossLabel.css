@@ -28,7 +28,7 @@
 }
 
 .crossLabel-container:hover .checkmarkCross {
-  background-color: #656b71;
+  background-color: rgba(52, 58, 64, .7);
 }
 
 /* When the checkbox is checked, add a blue background */

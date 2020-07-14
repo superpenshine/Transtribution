@@ -1,4 +1,4 @@
-import * as actionTypes from './actionTypes';
+    import * as actionTypes from './actionTypes';
 import { selectFileFail } from './selectFile';
 import { fetchGradeSuccess } from './grades';
 import axios from 'axios';
@@ -31,13 +31,14 @@ export const uploadGrades = (data) => {
         }
         dispatch(uploadGradesStart());
         const token = localStorage.getItem('token');
+        // Use formData as payload to upload file in binary
         const formData = new FormData();
         formData.append('file', data);
         axios.post(
             '/api/createOrUpdate/', 
             formData, 
             {headers: { Authorization: `Token ${ token }` , 
-                        'content-type': 'multipart/form-data'}}, 
+                        'Content-Type': 'multipart/form-data'}}, 
             )
         .then(
             res => {

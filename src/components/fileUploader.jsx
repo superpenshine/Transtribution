@@ -23,16 +23,15 @@ class FileUploader extends Component {
     }
 
     render(){
-        return(
-            <React.Fragment>
+        return (
+            <div>
                 <div className="p-2"> 
                     <input name="file" 
                            type="file" 
                            accept=".xlsx, .xls, .csv, .txt" 
                            className="inputfile" 
                            id='customFile'
-                           onChange={ (e) => this.props.handelFileSelect(e) }
-                           tabIndex="-1"></input>
+                           onChange={ (e) => this.props.handelFileSelect(e) }/>
                     <label htmlFor="customFile" className="pl-3" style={ this.labelColor() }>
                         { this.props.fileName ? this.props.fileName : '选择文件' }
                     </label>
@@ -51,13 +50,13 @@ class FileUploader extends Component {
                 <div className='d-flex p-2 flex-wrap'>
                     <div>
                         
-                    <button className='btn btn-light' tabIndex="2" onClick={ () => this.props.handelFileSubmit(this.props.file) }>上传</button>
+                    <button className='btn btn-light' tabIndex="3" onClick={ () => this.props.handelFileSubmit(this.props.file) }>上传</button>
                     </div>
                     <div className="ml-auto">
-                        <button className='btn btn-light' onClick={ this.props.onCancel }  tabIndex="3">取消</button>
+                        <button className='btn btn-light' onClick={ this.props.onCancel }  tabIndex="4" type="button">取消</button>
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         )
     }   
 }

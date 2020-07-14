@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
 
-export const selectedFile = (file, fileName) => {
-
+export const fileSelected = (file, fileName) => {
 	return {
 		type: actionTypes.FILESELECTED, 
 		fileName: fileName, 
@@ -9,7 +8,7 @@ export const selectedFile = (file, fileName) => {
 	}
 }
 
-export const deselectedFile = () => {
+export const fileDeselected = () => {
 	return {
 		type: actionTypes.FILEDESELECTED, 
 	}
@@ -41,10 +40,10 @@ export const selectFile = (e) => {
 	        const ext = fileName.split('.').pop();
 
 			if (['xlsx'].includes(ext)) {
-				dispatch(selectedFile(file, fileName));
+				dispatch(fileSelected(file, fileName));
 			} else {
 				dispatch(selectFileFail("文件需以.xlsx结尾"));
-				dispatch(deselectedFile());
+				dispatch(fileDeselected());
 			}
 		}
 	}
@@ -52,7 +51,7 @@ export const selectFile = (e) => {
 
 export const deselectFile = (e) => {
 	return dispatch => {
-		dispatch(deselectedFile);
+		dispatch(fileDeselected);
 	}
 }
  

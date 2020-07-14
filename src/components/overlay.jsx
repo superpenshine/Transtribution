@@ -5,11 +5,15 @@ import FileUploader from './fileUploader';
 
 class Overlay extends Component {
 
+	componentDidMount() {
+		document.getElementById('overlay').focus();
+	}
+
     render() {
         return (
-            <div id="overlay">
+            <div id="overlay" tabIndex="-1">
                 <div className="overlay-content"> 
-                    <FileUploader onCancel={ this.props.onExpandOverlay }/>
+                	{this.props.children}
                 </div>
             </div>
     )}

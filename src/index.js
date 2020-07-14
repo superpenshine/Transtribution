@@ -12,7 +12,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk'; 
 import { Provider } from 'react-redux';
-import reducer from './store/reducers/auth';
+import reducer from './store/reducers/reducer';
 // Google analytics
 import ReactGA from 'react-ga';
 

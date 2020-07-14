@@ -1,22 +1,19 @@
 
 .inputfile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
+    display: none;
 }
 
 .inputfile + label {
     line-height: 2.5rem;
     width: 100%;
-    min-width: 6.5rem;
-    font-size: 1.1rem;
+    min-width: 15rem;
+    font-size: 1.2rem;
     background-color: rgb(242, 242, 242);
     border-radius: 0.25rem;
     margin: 0;
     cursor: pointer;
 }
 
-.inputfile:focus + label, .inputfile + label:hover {
+.inputfile + label:hover {
     background-color: rgb(226, 230, 234);
 }

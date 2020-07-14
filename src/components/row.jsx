@@ -1,14 +1,11 @@
 
 import React, { Component } from 'react';
+import PanelIndicator from './panelIndicator';
 import CheckLabel from './checkLabel';
 import './row.css';
 import classNames from 'classnames';
 
 class Row extends Component {
-                // <td><input type="checkbox" 
-                //            onChange={ () => this.props.onSelectClick(this.props.id) } 
-                //            checked={ this.props.checked }
-                //            tabIndex={ -1 }></input></td>
     state = {
              show_panel: false, 
             };
@@ -38,14 +35,21 @@ class Row extends Component {
             'panel': !this.state.show_panel, 
         });
 
+
         return (
             <React.Fragment>
                 <tr onClick={ this.togglePanel } style={{"cursor": "pointer"}}>
                     { Object.entries(this.props.attr_show).map(([key, val], i) => 
-                        <td key={ i }>{ this.props.grade[val] }</td>
+                            <td key={ i }>{ this.props.grade[val] }</td>
                     )}
-                    <td><CheckLabel handleChange={ () => this.props.onSelectClick(this.props.id) }
-                                    checked={ this.props.checked }/>
+                    <td>
+                        <div className="d-flex flex-wrap colIconDiv">
+                            <div style={{"marginRight": "auto"}}>
+                                <CheckLabel handleChange={ () => this.props.onRowSelect(this.props.id) }
+                                            checked={ this.props.checked }/>
+                            </div>
+                            <PanelIndicator hide={ !this.state.show_panel }/>
+                        </div>
                     </td>
                 </tr>
                 { !this.props.attr_hidden ? null :

@@ -22,11 +22,6 @@ MIDDLEWARE = [
 #     }
 # }
 
-SMTP_HOST_ADDR = os.environ.get('SMTP_HOST_ADDR')
-SMTP_HOST_PORT = os.environ.get('SMTP_HOST_PORT')
-SMTP_HOST_USER = os.environ.get('SMTP_HOST_USER')
-SMTP_HOST_PWD = os.environ.get('SMTP_HOST_PWD')
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
